@@ -2,6 +2,7 @@
 # and include sub-projects here.
 #
 cmake_minimum_required (VERSION 3.8)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
