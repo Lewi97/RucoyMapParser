@@ -23,8 +23,9 @@ int main()
 		};
 
 	auto camera = Camera2D{};
-	camera.zoom = 1.f;
-	camera.target = Vector2{ 0.f, 0.f };
+	camera.zoom = 0.1f;
+	camera.target = Vector2{ 0.f, 1280.f };
+	
 	while (not WindowShouldClose())
 	{
 		if (IsKeyPressed(KEY_UP) or IsKeyPressed(KEY_DOWN))
