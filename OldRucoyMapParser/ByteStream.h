@@ -32,6 +32,25 @@ namespace rucoy
 		{
 			return not _file.fail();
 		}
+
+		/* 
+		* @param count: bytes to read, -1 will fill up to size
+		* @returns Written bytes 
+		*/
+		auto fill(std::ranges::range auto& range, int count = -1) -> int
+		{
+			auto bytes_to_read = count < 0 ? std::size(range) : count;
+			
+			for (auto& byte : range)
+			{
+				byte = read();
+				bytes_to_read--;
+				if (bytes_to_read == 0) 
+					break;
+			}
+
+			return bytes_to_read;
+		}
 	protected:
 		std::ifstream _file{};
 	};
