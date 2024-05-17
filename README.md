@@ -8,7 +8,10 @@ Go to the ``releases`` page of this repo and download the ``.exe`` or compile th
 
 Then download a Rucoy version that is version 1.10 or older; a copy of [Rucoy Online 1.10](https://www.mediafire.com/file/gen23mk92fww8yu/rucoy-online-1.10.0.apk/file) can be found here.
 Use a website like https://www.ezyzip.com/extract-apk-files.html to unpack the APK.
-Download the Zip from the website and copy the ``assets/maps`` folder and put it in a folder in the same directory as the ``.exe``.
-Do the same for the ``ground.png``
+Find the ``ground.png`` file and drop it in the folder with the ``.exe``
 
 Good luck!
+
+# Why not include ground.png?
+
+https://www.oryxdesignlab.com/ might sue me. ¯\\_(ツ)_/¯
