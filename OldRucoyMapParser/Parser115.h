@@ -21,7 +21,7 @@ namespace rucoy::v115
 	{
 		int width{};
 		int height{};
-		int tile_layers{};
+		int layers{};
 
 		int unknown{};
 
@@ -35,11 +35,11 @@ namespace rucoy::v115
 
 		file.width = stream.read() * 256 + stream.read();
 		file.height = stream.read() * 256 + stream.read();
-		file.tile_layers = stream.read();
+		file.layers = stream.read();
 
 		file.unknown = stream.read() * 256 + stream.read();
 
-		for (auto sprite_layer{ 0 }; sprite_layer < file.tile_layers; sprite_layer++)
+		for (auto sprite_layer{ 0 }; sprite_layer < file.layers; sprite_layer++)
 		{
 			auto music_regions = stream.read();
 			for (auto music_region{ 0 }; music_region < music_regions; music_region++)
