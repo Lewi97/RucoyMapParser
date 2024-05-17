@@ -46,16 +46,16 @@ namespace rucoy::v115
 			{
 				auto music_name_size = stream.read();
 				stream.fill(music_name_buffer, music_name_size);
-				file.music_regions.push_back(
-					MusicRegion{
-						.music = std::string(music_name_buffer.data(), music_name_size),
-						.height = stream.read() * 256 + stream.read(),
-						.width = stream.read() * 256 + stream.read(),
-						.x = stream.read() * 256 + stream.read(),
-						.y = stream.read() * 256 + stream.read(),
-						.z = sprite_layer
-					}
-				);
+
+				auto region = MusicRegion();
+				region.x = stream.read() * 256 + stream.read();
+				region.y = stream.read() * 256 + stream.read();
+				region.z = sprite_layer;
+				region.width = stream.read() * 256 + stream.read();
+				region.height = stream.read() * 256 + stream.read();
+				region.music = std::string(music_name_buffer.data(), music_name_size);
+
+				file.music_regions.push_back(std::move(region));
 			}
 		}
 
