@@ -12,3 +12,7 @@ Download the Zip from the website and copy the ``assets/maps`` folder and put it
 Do the same for the ``ground.png``
 
 Good luck!
+
+# Why so many instructions?
+
+Neither https://www.oryxdesignlab.com/ or Ricardo have given me permission to include their property.
