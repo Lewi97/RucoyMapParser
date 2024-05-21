@@ -14,7 +14,7 @@ static auto add_tiles_from_chunk(Tiles& tiles, MapPosition offset, const InitFil
                 {
                     auto texture_x = stream.read();
                     auto texture_y = stream.read();
-                    tiles[x + y * info.metrics.width].tiles[layer] = { texture_x, texture_y };
+                    tiles[x + y * info.metrics.width].add({ texture_x, texture_y });
                 }
             }
     }
