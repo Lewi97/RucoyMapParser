@@ -3,20 +3,11 @@
 #include <array>
 #include <string>
 
+#include "MusicRegion.h"
 #include "ByteStream.h"
 
 namespace rucoy::v115
 {
-	struct MusicRegion
-	{
-		std::string music{};
-		int height{};
-		int width{};
-		int x{};
-		int y{};
-		int z{};
-	};
-
 	struct InitFile
 	{
 		int width{};
