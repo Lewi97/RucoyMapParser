@@ -27,7 +27,7 @@ namespace rucoy
             struct {
                 float width;
                 float height;
-            } metrics{};
+            } map{};
 
             struct {
                 int width{ chunk_size.width };

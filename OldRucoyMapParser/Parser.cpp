@@ -14,7 +14,7 @@ static auto add_tiles_from_chunk(Tiles& tiles, MapPosition offset, const InitFil
                 {
                     auto texture_x = stream.read();
                     auto texture_y = stream.read();
-                    tiles[x + y * info.metrics.width].add({ texture_x, texture_y });
+                    tiles[x + y * info.map.width].add({ texture_x, texture_y });
                 }
             }
     }
@@ -28,7 +28,7 @@ static auto get_entire_layer(int layer, const InitFile& info, const std::filesys
     constexpr auto map_max_x = 32;
     constexpr auto map_max_y = 32;
 
-    auto tiles = Tiles(info.metrics.width * info.metrics.height);
+    auto tiles = Tiles(info.map.width * info.map.height);
     auto reader = ByteStream{};
 
     for (auto x{ 0 }; x < map_max_x; x++)
@@ -63,8 +63,8 @@ auto rucoy::v110::get_map_tiles(const InitFile& map_info, const std::filesystem:
 auto rucoy::v110::map_info_from_bytes(ByteStream& stream) -> InitFile
 {
     auto map = InitFile();
-    map.metrics.width = stream.read() * 256 + stream.read();
-    map.metrics.height = stream.read() * 256 + stream.read();
+    map.map.width = stream.read() * 256 + stream.read();
+    map.map.height = stream.read() * 256 + stream.read();
     map.layers = stream.read();
     for (auto layer{ 0 }; layer < map.layers; layer++)
     {
