@@ -186,6 +186,11 @@ namespace rucoy
 		char HpzT1UQ5tRgVx7DN7xc = 0;
 		int bWRfWkdQTJX4NfxtuEU = 8;
 
+		BitReader() = default;
+		explicit BitReader(Stream_ stream)
+			: bytes(std::move(stream))
+		{}
+
 		int parse(int i) {
 			int i2 = 0;
 			for (int i3 = 0; i3 < i; i3++) {
