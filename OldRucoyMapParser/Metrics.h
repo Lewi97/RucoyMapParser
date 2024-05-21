@@ -2,6 +2,7 @@
 
 #include <array>
 #include <vector>
+#include <compare>
 
 namespace rucoy
 {
@@ -10,6 +11,8 @@ namespace rucoy
     {
         T x{};
         T y{};
+
+        constexpr auto operator<=>(const Vec2<T>&) const = default;
     };
 
     using Vec2f = Vec2<float>;
@@ -24,6 +27,7 @@ namespace rucoy
 
     using WorldPosition = Vec2<float>;
     using TextureCoord = Vec2i;
+    constexpr auto invalid_texture_coord = TextureCoord{ -1,-1 };
     using MapPosition = Vec2<int>;
 
     struct TextureRegion
@@ -36,11 +40,14 @@ namespace rucoy
     {
         auto add(TextureCoord coord) -> void
         {
-            tiles.at(tiles_written_to++) = coord;
+            if (_tiles_written_to < _tiles.size())
+                _tiles.at(_tiles_written_to++) = coord;
         }
+
+        auto tiles(this auto&& self) { return std::forward<decltype(self)>(self)._tiles; }
     private:
-        std::array<TextureCoord, 3> tiles{};
-        size_t tiles_written_to{};
+        std::array<TextureCoord, 3> _tiles{ invalid_texture_coord , invalid_texture_coord , invalid_texture_coord };
+        size_t _tiles_written_to{};
     };
 
     using Tiles = std::vector<MultiLayeredTile>;

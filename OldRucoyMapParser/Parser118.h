@@ -10,6 +10,9 @@
 */
 namespace rucoy::v118
 {
+    constexpr auto map_width = 418;
+    constexpr auto map_height = 553;
+
     /*
     * (TODO) implement zlib compression
     * first four bytes in big endian denote the size of the uncompressed data

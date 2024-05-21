@@ -248,26 +248,25 @@ static auto parse_music(BitReaderFileStream& stream) -> std::vector<MusicRegion>
         }
     }
 
-
     return regions;
 }
 
 auto rucoy::v118::get_map_tiles(const std::filesystem::path& path, bool is_version_122) -> Layers
 {
-    constexpr auto maxx = 418;
-    constexpr auto maxy = 553;
-
     auto parser = MapParser();
-    auto reader = ByteStream(path / "assets/nm1");
-    auto uncompressed_size = reader.read_int();
+    auto filestream = BitReaderFileStream();
+    filestream.bytes = ByteStream(path / "assets/nm1");
+    
+    if (not filestream.bytes.valid()) return {};
+
+    // auto uncompressed_size = reader.read_int();
     // zlib::decompress(buffer, file, uncompressed_size)
-    auto map_data = BitReaderFileStream(std::move(reader));
-    parser.load(map_data);
+    parser.load(filestream);
     
     auto layers = Layers(parser.world_layers());
     for (auto layer{ 0 }; layer < layers.size(); layer++)
     {
-        layers.at(layer).resize(maxx * maxy);
+        layers.at(layer).resize(map_width * map_height + map_width);
         auto& tiles = layers.at(layer);
         for (auto x{ 2 }; x < 64; x++)
         {
@@ -278,11 +277,11 @@ auto rucoy::v118::get_map_tiles(const std::filesystem::path& path, bool is_versi
                     auto tile_x = tile[VertexArrayLoc::WorldLocationX];
                     auto tile_y = tile[VertexArrayLoc::WorldLocationY];
                     auto texture_pos = TextureCoord{
-                        static_cast<int>(tile[VertexArrayLoc::TextureTopLeftX]) * 1024 + (is_version_122 * 1024),
-                        static_cast<int>(tile[VertexArrayLoc::TextureTopLeftY]) * 1024 + (is_version_122 * 900)
+                        static_cast<int>(tile[VertexArrayLoc::TextureTopLeftX] * 1024) + (is_version_122 * 1024),
+                        static_cast<int>(tile[VertexArrayLoc::TextureTopLeftY] * 1024) + (is_version_122 * 900)
                     };
 
-                    tiles.at(tile_x + tile_y * maxx)
+                    tiles.at(tile_x + tile_y * map_width)
                         .add(texture_pos);
                 }
             }
