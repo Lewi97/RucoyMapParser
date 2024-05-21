@@ -46,7 +46,7 @@ namespace rucoy
 
         auto tiles(this auto&& self) { return std::forward<decltype(self)>(self)._tiles; }
     private:
-        std::array<TextureCoord, 3> _tiles{ invalid_texture_coord , invalid_texture_coord , invalid_texture_coord };
+        std::array<TextureCoord, 6> _tiles{ invalid_texture_coord , invalid_texture_coord , invalid_texture_coord, invalid_texture_coord, invalid_texture_coord, invalid_texture_coord };
         size_t _tiles_written_to{};
     };
 
