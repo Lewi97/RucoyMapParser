@@ -4,67 +4,39 @@
 #include <vector>
 
 #include "ByteStream.h"
-
-/*
-* Most of the types defined within this header deserve their own header but i'm lazy
-*/
+#include "Metrics.h"
 
 namespace rucoy
 {
-    template<typename T>
-    struct Vec2
+    /* Confirmed to support version 106 - v110*/
+    namespace v110
     {
-        T x{};
-        T y{};
-    };
+        constexpr auto max_layers = 4ull;
+        constexpr auto chunk_size = Bounds{ 16, 10 };
+        constexpr auto tile_size = 26.f; /* The game reads 24 but i dont feel like doing offsets */
 
-    using Vec2f = Vec2<float>;
-    using Vec2i = Vec2<int>;
+        struct InitFile
+        {
+            InitFile() = default;
 
-    template<typename T>
-    struct Bounds
-    {
-        T width{};
-        T height{};
-    };
+            float tile_size{ ::rucoy::v110::tile_size };
 
-    using WorldPosition = Vec2<float>;
-    using MapPosition = Vec2<int>;
+            int layers{ 0 };
+            std::vector<int> tile_layers{};
 
-    constexpr auto max_layers = 4ull;
-    constexpr auto chunk_size = Bounds{ 16, 10 };
-    constexpr auto tile_size = 26.f; /* The game reads 24 but i dont feel like doing offsets */
+            struct {
+                float width;
+                float height;
+            } metrics{};
 
-    struct MapInfo
-    {
-        MapInfo() = default;
+            struct {
+                int width{ chunk_size.width };
+                int height{ chunk_size.height };
+            } chunk{};
+        };
 
-        float tile_size{ ::rucoy::tile_size };
-
-        int layers{ 0 };
-        std::vector<int> tile_layers{};
-
-        struct {
-            float width;
-            float height;
-        } metrics{};
-
-        struct {
-            int width{ chunk_size.width };
-            int height{ chunk_size.height };
-        } chunk{};
-    };
-
-    using TextureCoord = Vec2i;
-    struct MultiLayeredTile
-    {
-        std::array<TextureCoord, 3> tiles{};
-    };
-
-    using Tiles = std::vector<MultiLayeredTile>;
-    using Layers = std::vector<Tiles>;
-
-    auto map_info_from_bytes(ByteStream& stream) -> MapInfo;
-    auto get_map_tiles(const MapInfo& map_info, const std::filesystem::path& chunk_folder) -> Layers;
+        auto map_info_from_bytes(ByteStream& stream) -> InitFile;
+        auto get_map_tiles(const InitFile& map_info, const std::filesystem::path& chunk_folder) -> Layers;
+    }
 }
 

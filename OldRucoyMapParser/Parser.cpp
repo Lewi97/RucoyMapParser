@@ -1,8 +1,9 @@
 #include "Parser.h"
 
 using namespace rucoy;
+using namespace rucoy::v110;
 
-static auto add_tiles_from_chunk(Tiles& tiles, MapPosition offset, const MapInfo& info, ByteStream& stream, int tile_layers) -> void
+static auto add_tiles_from_chunk(Tiles& tiles, MapPosition offset, const InitFile& info, ByteStream& stream, int tile_layers) -> void
 {
     for (auto layer = 0; layer < tile_layers; layer++)
     {
@@ -22,7 +23,7 @@ static auto add_tiles_from_chunk(Tiles& tiles, MapPosition offset, const MapInfo
 /*
 * Load in all chunk files by bruteforce finding them
 */
-static auto get_entire_layer(int layer, const MapInfo& info, const std::filesystem::path& chunk_folder) -> Tiles
+static auto get_entire_layer(int layer, const InitFile& info, const std::filesystem::path& chunk_folder) -> Tiles
 {
     constexpr auto map_max_x = 32;
     constexpr auto map_max_y = 32;
@@ -44,7 +45,7 @@ static auto get_entire_layer(int layer, const MapInfo& info, const std::filesyst
     return tiles;
 }
 
-auto rucoy::get_map_tiles(const MapInfo& map_info, const std::filesystem::path& chunk_folder) -> Layers
+auto rucoy::v110::get_map_tiles(const InitFile& map_info, const std::filesystem::path& chunk_folder) -> Layers
 {
     auto layers = Layers(map_info.layers);
     auto world_layers = map_info.layers;
@@ -59,9 +60,9 @@ auto rucoy::get_map_tiles(const MapInfo& map_info, const std::filesystem::path& 
     return layers;
 }
 
-auto rucoy::map_info_from_bytes(ByteStream& stream) -> MapInfo
+auto rucoy::v110::map_info_from_bytes(ByteStream& stream) -> InitFile
 {
-    auto map = MapInfo();
+    auto map = InitFile();
     map.metrics.width = stream.read() * 256 + stream.read();
     map.metrics.height = stream.read() * 256 + stream.read();
     map.layers = stream.read();
