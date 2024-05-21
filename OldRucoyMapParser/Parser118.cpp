@@ -253,6 +253,9 @@ static auto parse_music(BitReaderFileStream& stream) -> std::vector<MusicRegion>
 
 auto rucoy::v118::get_map_tiles(const std::filesystem::path& path, bool is_version_122) -> Layers
 {
+    constexpr auto offset_x = 41;
+    constexpr auto offset_y = 225;
+
     auto parser = MapParser();
     auto filestream = BitReaderFileStream();
     filestream.bytes = ByteStream(path / "assets/nm1");
@@ -274,8 +277,10 @@ auto rucoy::v118::get_map_tiles(const std::filesystem::path& path, bool is_versi
             {
                 for (const auto& tile : parser.get_tiles_at(x * 10, y * 10, layer, 0.f))
                 {
-                    auto tile_x = tile[VertexArrayLoc::WorldLocationX];
-                    auto tile_y = tile[VertexArrayLoc::WorldLocationY];
+                    auto tile_x = tile[VertexArrayLoc::WorldLocationX] - offset_x;
+                    auto tile_y = tile[VertexArrayLoc::WorldLocationY];// -offset_y;
+                    if (tile_x < 0 or tile_y < 0) 
+                        continue;
                     auto texture_pos = TextureCoord{
                         static_cast<int>(tile[VertexArrayLoc::TextureTopLeftX] * 1024) + (is_version_122 * 1024),
                         static_cast<int>(tile[VertexArrayLoc::TextureTopLeftY] * 1024) + (is_version_122 * 900)
