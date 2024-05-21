@@ -34,7 +34,13 @@ namespace rucoy
 
     struct MultiLayeredTile
     {
+        auto add(TextureCoord coord) -> void
+        {
+            tiles.at(tiles_written_to++) = coord;
+        }
+    private:
         std::array<TextureCoord, 3> tiles{};
+        size_t tiles_written_to{};
     };
 
     using Tiles = std::vector<MultiLayeredTile>;
