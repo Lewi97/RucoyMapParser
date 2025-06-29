@@ -2,6 +2,8 @@
 
 #include <fstream>
 #include <filesystem>
+#include <utility>
+#include <ranges>
 
 namespace rucoy
 {
