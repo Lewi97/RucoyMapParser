@@ -1,0 +1,51 @@
+BasedOnStyle: Microsoft
+NamespaceIndentation: All
+InsertBraces: true
+AlwaysBreakTemplateDeclarations: true
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
+BreakConstructorInitializers: BeforeComma
+BreakConstructorInitializersBeforeComma: true
+PointerAlignment: Left
+# AllowShortCompoundRequirementOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: Never
+ColumnLimit: 80
+AllowShortLambdasOnASingleLine: Inline
+AllowShortLoopsOnASingleLine: false
+IndentAccessModifiers: false
+Cpp11BracedListStyle: false
+BreakAfterAttributes: Leave
+IndentCaseLabels: true
+IntegerLiteralSeparator:
+  Binary: 4
+  Decimal: 3
+  Hex: -1
+
+QualifierAlignment: Custom
+QualifierOrder: [friend, inline, static, constexpr, const, volatile, type]
+RequiresClausePosition: OwnLine
+SpaceAfterTemplateKeyword: false
+SpaceBeforeInheritanceColon: true
+
+BinPackParameters: false
+BinPackArguments: false
+IndentWrappedFunctionNames: true
+
+BraceWrapping:
+  AfterCaseLabel:  true
+  AfterClass:      true
+  AfterControlStatement: Always
+  AfterEnum:       true
+  AfterExternBlock: true
+  AfterFunction:   true
+  AfterNamespace:  true
+  AfterObjCDeclaration: true
+  AfterStruct:     true
+  AfterUnion:      false
+  BeforeCatch:     true
+  BeforeElse:      true
+  BeforeLambdaBody: true
+  BeforeWhile:     false
+  IndentBraces:    false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: true
